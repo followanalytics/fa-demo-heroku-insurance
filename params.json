@@ -1,0 +1,6 @@
+{
+  "name": "Insurance demo",
+  "tagline": "FollowAnalytics + Heroku + Salesforce",
+  "body": "### Get deep insights on your mobile users\r\n\r\nGet FollowAnalytics as an Heroku add-on, use the provided mobile app to generate data, and see its data both in FollowAnalytics and in Salesforce. Use the Heroku demo app to send push notifications to the mobile app.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
