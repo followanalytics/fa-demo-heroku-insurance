@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Insurance demo by followanalytics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <div><img class="fa-logo" src="images/logo-followanalytics.svg" /></div>
+    <section class="page-header">
+      <h1 class="project-name">Insurance demo</h1>
+      <h2 class="project-tagline">FollowAnalytics + Heroku + Salesforce</h2>
+
+      <div class="deploy">
+        <a class="btn heroku" target="_blank" href="https://heroku.com/deploy?template=https://github.com/followanalytics/fa-demo-heroku-insurance/tree/master" ref="https://heroku.com/deploy">
+                        <img width="100%" src="images/heroku-button.svg" alt="Deploy" />
+                    </a>
+        <a class="salesforce btn" target="_blank" href="https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B4ZXiEAN">
+                        <img width="100%" src="images/salesforce-button.svg" />
+                    </a>
+        </div>
+
+        <ul class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="walkthrough.html">Walkthrough</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="#" class="current">Setup</a></li>
+        </ul>
+    </section>
+
+    <section class="main-content">
+      <h2>Setup the demo</h2>
+
+<p>At the end of this setup process, you will have:</p>
+
+<ul>
+<li>The FollowAnalytics Salesforce App configured on a Salesforce developer instance</li>
+<li>The Heroku demo app deployed and ready</li>
+<li>An account on FollowAnalytics through the FollowAnalytics Heroku Add-on</li>
+<li>The Insurance demo app installed on a mobile device</li>
+</ul>
+
+<h3>1. Install the FollowAnalytics Salesforce app</h3>
+
+<blockquote>You should use a developer instance. If you need one, <a href="http://developer.salesforce.com/signup">sign up for it here</a>.</blockquote>
+
+<p>Install the FollowAnalytics package by clicking the link below. If you use multiple Salesforce orgs, make sure you select the developer instance to connect this demo.</p>
+
+<a class="salesforce btn" target="_blank" href="https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B4ZXiEAN">
+                        <img width="100%" src="images/salesforce-button.svg" />
+                    </a>
+
+<p>You can leave options to their default values.</p>
+
+<h3>2. Deploy the Heroku app and configure it</h3>
+
+<p>Deploy the demo web app to a new heroku app by clicking the link below.</p>
+
+<a class="btn heroku" target="_blank" href="https://heroku.com/deploy?template=https://github.com/followanalytics/fa-demo-heroku-insurance/tree/master" ref="https://heroku.com/deploy">
+                        <img width="100%" src="images/heroku-button.svg" alt="Deploy" />
+                    </a>
+
+<p>This app will automatically bundle the FollowAnalytics add-on, thus creating an account on it for you. Even though the add-on test plan is free, you will need to have configured a credit card on your Heroku account.</p>
+
+<p>When deploying the code, you will be asked for your Salesforce credentials as config variables, to ensure the connection between the various systems can be achieved. You need to provide all three fields. To get your Salesforce token, navigate to Salesforce and go to your settings: [name] —> My settings —> Personal —> reset my security token. You will receive the token by email.</p>
+
+<p>You can now access your FollowAnalytics account by going to your app in your Heroku console and clicking on the FollowAnalytics addon.</p>
+
+<h3>3. Download and build the iOS mobile app</h3>
+
+<p>To enable push notifications on the test app, you will need an Apple Developer Account, which costs 99USD per year. Without it, you can still use the app on a device and get that data into Salesforce.</p>
+<ul>
+<li><a href="#">Download the iOS app code from Github</a></li>
+<li>On a Mac computer, open the project in Xcode by double-clicking on the <code>.xcodeproj</code> file</li>
+<li>Go to the Heroku app you deployed (<code>APPNAME.herokuapp.com</code>) and copy the mobile app package name. In Xcode, go to the project settings, and change the package name to the one you copied</li>
+<li>On your Heroku app, copy the app API Key. In Xcode, navigate to the Constants.h file, and edit the value for <code>API_KEY</code> with the one you copied.</li>
+<li>Build the project (Product > Build) to ensure everything is properly configured. It should run without error.</li>
+<li>Connect an iPhone to your computer, and Run the app on it. <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/LaunchingYourApponDevices/LaunchingYourApponDevices.html">Please follow these instructions to know how to run the app on your device</a></li>
+<li>Should you wish to be able to send push notifications to the app, you will need to enroll to the Apple Developer Program (or use an existing Apple ID already enrolled). <a href="http://dev.followanalytics.com/faq/#how-to-configure-my-ios-app-for-push-notifications">Follow these instructions to produce the certificate needed to send push notifications</a>, and add it to FollowAnalytics through the Heroku demo app.</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner">Copyright 2016 FollowAnalytics, Inc. All rights reserved.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
