@@ -1,5 +1,5 @@
 {
-  "name": "FollowAnalytics Insurance Heroku Demo",
+  "name": "FollowAnalytics Insurance Demo",
   "description": "The central point of the Insurance demo provided by FollowAnalytics to illustrate integration between Heroku, Salesforce and FollowAnalytics",
   "repository": "https://github.com/followanalytics/fa-demo-heroku-insurance",
   "logo": "http://followanalytics.com/wp-content/themes/followanalytics/img/logo-follow-analytics-orange.png",
