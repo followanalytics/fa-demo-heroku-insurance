@@ -6,16 +6,16 @@
   "keywords": ["FollowAnalytics", "Salesforce", "Heroku", "Insurance", "demo"],
   "env": {
     "SALESFORCE_LOGIN": {
-      "description": "Your Salesforce login to allow data sync.",
+      "description": "Your Salesforce login to allow data sync."
     },
     "SALESFORCE_PASSWORD": {
-      "description": "Your Salesforce password.",
+      "description": "Your Salesforce password."
     },
     "SALESFORCE_TOKEN": {
-      "description": "Your Salesforce token - see demo documentation for details.",
+      "description": "Your Salesforce token - see demo documentation for details."
     },
     "SALESFORCE_APP_CLIENT_ID": {
-      "description": "The client ID obtained when configuring the FollowAnalytics AppExchange OAuth app.",
+      "description": "The client ID obtained when configuring the FollowAnalytics AppExchange OAuth app."
     },
     "SALESFORCE_APP_CLIENT_SECRET": {
       "description": "The client secret obtained when configuring the FollowAnalytics AppExchange OAuth app."
