@@ -11,10 +11,10 @@
 <% if @mobile_app %>
 <h2>Mobile app details</h2>
 <p>The mobile app is <strong>registered</strong> on your FollowAnalytics account.<br/>To connect the iOS demo app to FollowAnalytics,
-  don't forget to copy the <em>package_name</em> below and use it as the bundle ID of your app in XCode.</p>
+  don't forget to copy the <em>package_name</em> below and use it as the bundle ID of your app in XCode. You will need to use the API Key given below as well.</p>
 
   <p>Please refer to <a href="https://followanalytics.github.io/fa-demo-heroku-insurance/">the demo app project page on github</a> for more details.</p>
-<table>
+<table class="app-desc">
   <tr>
     <td>App name</td>
     <td><%= @mobile_app['localizations'].first['name'] %></td>
@@ -41,27 +41,38 @@
 <% end %>
 <% end %>
 
+<h2>Salesforce connection</h2>
+<% if @crm_system %>
+  <p>Your Salesforce connector is set-up in FollowAnalytics, with username <%= @crm_system['username'] %> and Org Key <%= @crm_system['org_key'] %>.</p>
+<% else %>
+  <p>Something happened and your Salesforce connector is not properly set. Check your Heroku environment variables.</p>
+<% end %>
+
 <h2>Send a push message</h2>
 <p><em>This section illustrates how you can use the FollowAnalytics plugin on Heroku to list users and send them push messages.</em></p>
 <% if @certificate %>
 <p>You have a push certificate on your app. It expires on <%= DateTime.parse(@certificate['not_after']).strftime("%B %d, %Y") %>. 
 <a href="/push/reset_certificate?app_identifier=<%= @mobile_app['identifier'] %>&cert_identifier=<%= @certificate['identifier'] %>">Reset certificate</a></p>
 
-  <%= form_tag('push/send', method: 'post') do %>
-  <table>
-    <thead>
-      <tr><td>select</td><td>user identifier</td></tr>
-    </thead>
-    <tbody>
-      <% @profiles.each do |profile| %>
-        <tr><td><input type="checkbox" name="customer_ids[]" value="<%= profile['customer_id'] %>" /></td><td><%= profile['customer_id'] %></td>
-      <% end %>
-    </tbody>
-  </table>
+  <% if @profiles.present? %>
+    <%= form_tag('push/send', method: 'post') do %>
+    <table>
+      <thead>
+        <tr><td>select</td><td>user identifier</td></tr>
+      </thead>
+      <tbody>
+        <% @profiles.each do |profile| %>
+          <tr><td><input type="checkbox" name="customer_ids[]" value="<%= profile['customer_id'] %>" /></td><td><%= profile['customer_id'] %></td>
+        <% end %>
+      </tbody>
+    </table>
 
-  <p><input type="text" maxlength="50" size="60" placeholder="Type your push message here" name="message" /></p>
-  <input type="hidden" name="app_identifier" value="<%= @mobile_app['identifier'] %>"/>
-  <input type="submit" value="Send your push message" class="send-btn" />
+    <p><input type="text" maxlength="50" size="60" placeholder="Type your push message here" name="message" /></p>
+    <input type="hidden" name="app_identifier" value="<%= @mobile_app['identifier'] %>"/>
+    <input type="submit" value="Send your push message" class="send-btn" />
+    <% end %>
+  <% else %>
+    <p><strong>There is no user available to send push notifications yet.</strong> Try launching the mobile app, putting in a login, signing in, then exit the app and wait up to 10 minutes.</p>
   <% end %>
 <% elsif @mobile_app %>
   <p>You don't have any push certificate configured on your app.</p>

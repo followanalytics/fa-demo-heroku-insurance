@@ -1,10 +1,12 @@
 class PushController < ApplicationController
 
+  # BASE_URL = 'http://localhost:3000/api/'.freeze
   BASE_URL = 'https://api-dev.follow-apps.com/api/'.freeze
   CAMPAIGN_NAME = 'Heroku demo transac'.freeze
 
   # get all the data required for showing the default page
   def index
+    ensure_salesforce_connector
     fetch_app_and_key
     fetch_certificate if @mobile_app.present?
     fetch_users if @certificate.present?
@@ -43,10 +45,42 @@ class PushController < ApplicationController
 
   protected
 
+  def ensure_salesforce_connector
+    response = RestClient.get(url('crm_systems'), headers)
+    result = JSON.parse response.body
+    if !result['success']
+      @error_message = "Could not fetch the campaigns"
+    else
+      @crm_system = result['result']['crm_systems'].find { |crm| crm['crm_type'] == 'sf' && crm['username'] == ENV['SALESFORCE_LOGIN'] }
+    end
+
+    if !@crm_system
+      p ENV
+      if ENV['SALESFORCE_LOGIN'].blank? || ENV['SALESFORCE_PASSWORD'].blank? ||
+      ENV['SALESFORCE_TOKEN'].blank? || ENV['SALESFORCE_APP_CLIENT_ID'].blank? || ENV['SALESFORCE_APP_CLIENT_SECRET'].blank?
+        @error_message = "The Salesforce connection can't be established, at least one of the 5 required ENV variables is missing."
+      else
+        # create the crm system
+        post_params = {
+          'name' => 'Insurance Demo Salesforce CRM',
+          'username' => ENV['SALESFORCE_LOGIN'],
+          'password' => ENV['SALESFORCE_PASSWORD'],
+          'token' => ENV['SALESFORCE_TOKEN'],
+          'client_id' => ENV['SALESFORCE_APP_CLIENT_ID'],
+          'client_secret' => ENV['SALESFORCE_APP_CLIENT_SECRET'],
+          'crm_type' => 'sf'
+        }
+        @crm_system = create_object(url('crm_systems'), post_params)
+      end
+    end
+  end
+
   def fetch_app_and_key
     begin
       response = RestClient.get(url('apps'), headers)
-    rescue RestClient::Exception => e
+    rescue RestClient::Unauthorized, RestClient::Forbidden => err
+      @error_message = "You are not authorized, make sure your FOLLOWANALYTICS_API_TOKEN variable is defined and that your FollowAnalytics account works"
+    rescue RestClient::ExceptionWithResponse => e
       @error_message = e.body
     end
 

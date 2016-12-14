@@ -49,7 +49,7 @@ table {
   border-collapse: collapse;
 }
 
-table, th, td {
+table, td {
     border: 1px solid black;
 }
 
@@ -57,7 +57,7 @@ td {
   padding: 5px;
 }
 
-td:first-child {
+thead, .app-desc td:first-child {
   background-color: #EEE;
   font-weight: bold;
 }
