@@ -16,26 +16,26 @@
       <h2 class="project-tagline">FollowAnalytics + Heroku + Salesforce</h2>
 
       <div class="deploy">
-        <a class="btn heroku" target="_blank" href="https://heroku.com/deploy?template=https://github.com/followanalytics/fa-demo-heroku-insurance/tree/master" ref="https://heroku.com/deploy">
-                        <img width="100%" src="images/heroku-button.svg" alt="Deploy" />
-                    </a>
         <a class="salesforce btn" target="_blank" href="https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B4ZXiEAN">
-                        <img width="100%" src="images/salesforce-button.svg" />
-                    </a>
-        </div>
+            <img width="100%" src="images/salesforce-button.svg" />
+        </a>
+        <a class="btn heroku" target="_blank" href="https://heroku.com/deploy?template=https://github.com/followanalytics/fa-demo-heroku-insurance/tree/master" ref="https://heroku.com/deploy">
+            <img width="100%" src="images/heroku-button.svg" alt="Deploy" />
+        </a>
+      </div>
 
-        <ul class="menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="walkthrough.html">Walkthrough</a></li>
-          <li><a href="architecture.html">Architecture</a></li>
-          <li><a href="#" class="current">Setup</a></li>
-        </ul>
+      <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="walkthrough.html">Walkthrough</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="#" class="current">Setup</a></li>
+      </ul>
     </section>
 
     <section class="main-content">
       <h2>Setup the demo</h2>
 
-<p>At the end of this setup process, you will have:</p>
+<p>At the end of this step-by-step setup process, you will have:</p>
 
 <ul>
 <li>The FollowAnalytics Salesforce App configured on a Salesforce developer instance</li>
@@ -45,6 +45,7 @@
 </ul>
 
 <h3>1. Install the FollowAnalytics Salesforce app</h3>
+<h4>1.1. Deploy the app on Salesforce</h4>
 
 <blockquote>You should use a developer instance. If you need one, <a href="http://developer.salesforce.com/signup">sign up for it here</a>.</blockquote>
 
@@ -56,39 +57,85 @@
 
 <p>You can leave options to their default values.</p>
 
-<h3>2. Deploy the Heroku app and configure it</h3>
+<h4>1.2. Create an OAuth app for FollowAnalytics to send data</h4>
 
-<p>Deploy the demo web app to a new heroku app by clicking the link below.</p>
+<p>FollowAnalytics requires you to declare an OAuth app on Salesforce, which will allow the sending of data through Salesforce APIs.</p>
+
+<p>In your Salesforce demo instance:</p>
+
+<ol>
+  <li>Click on your name in the Salesforce page top-right corner, then <em>Setup</em></li>
+  <li>In the menu to the left, under <em>App Setup</em>, select <em>Create > Apps</em></li>
+  <li>In <em>Connected Apps</em>, click on <em>New</em></li>
+  <li>Give an app and API name, for instance "FollowAnalytics", and put your contact e-mail.</li>
+  <li>Click on <em>Enable OAuth Settings</em>, enter any URL (for instance <code>https://login.salesforce.com/services/oauth2/callback</code>), and give the <em>Full Access (full)</em> OAuth scope.<br/><br/>The form should look like this: <img src="images/connected_app.png" /></li>
+  <li>Click <em>Save</em></li>
+</ol>
+
+<p>You should be redirected to the app you just created. In this screen, copy the <em>Consumer Key</em> and <em>Consumer Secret</em> and keep them at hand for the next step.</p>
+
+<img src="images/consumer_key_and_secret.png" />
+
+
+<h3>2. Deploy the Heroku app and configure it</h3>
+<h4>2.1. Deploy</h4>
+
+<p>Deploy the demo web app to a new heroku app by clicking the Deploy button below.</p>
 
 <a class="btn heroku" target="_blank" href="https://heroku.com/deploy?template=https://github.com/followanalytics/fa-demo-heroku-insurance/tree/master" ref="https://heroku.com/deploy">
                         <img width="100%" src="images/heroku-button.svg" alt="Deploy" />
                     </a>
 
-<p>This app will automatically bundle the FollowAnalytics add-on, thus creating an account on it for you. Even though the add-on test plan is free, you will need to have configured a credit card on your Heroku account.</p>
+<p>This app will automatically bundle the FollowAnalytics add-on, thus creating an account on it for you. Even though the add-on test plan is free, you will need to have configured a credit card on your Heroku account to deploy this app.</p>
 
-<p>When deploying the code, you will be asked for your Salesforce credentials as config variables, to ensure the connection between the various systems can be achieved. You need to provide all three fields. To get your Salesforce token, navigate to Salesforce and go to your settings: [name] —> My settings —> Personal —> reset my security token. You will receive the token by email.</p>
+<p>When deploying the code, you will be asked for 5 values, as config variables:</p>
+<ul>
+  <li>your Salesforce credentials, to ensure the connection between the various systems can be achieved. You need to provide all three fields. <br/>To get your Salesforce token, navigate to Salesforce and go to your settings: [name] —> My settings —> Personal —> reset my security token. You will receive the token by email.</li>
+  <li>the consumer key and secret obtained in step <em>1.2</em> above.</li>
+</ul>
 
-<p>You can now access your FollowAnalytics account by going to your app in your Heroku console and clicking on the FollowAnalytics addon.</p>
+<img src="images/heroku_deploy.png" />
+
+<p>You can leave the name blank, or give it one you choose. The name generated to the app will determine the URL to access your app once it's deployed: <code>http://APPNAME.herokuapp.com</code></p>
+
+<p>For slightly faster page loading, you can choose to deploy the app in Europe instead of the default United States option.</p>
+
+<p>Once you click <em>Deploy</em>, the app is set up. You can now access your FollowAnalytics account by going to your app in your Heroku console and clicking on the FollowAnalytics addon.</p>
+
+<h4>2.2. Configure FollowAnalytics for the demo</h4>
+
+<p>The Heroku app you just deployed is autonomous. You only need to click one button to get the required objects created in FollowAnalytics.</p>
+
+<p>Go to <code>http://YOURAPPNAME.herokuapp.com</code> or click on the <em>Open App</em> button located in the top-right corner of the Heroku app detail page in your Heroku Dashboard.</p>
+
+<p>Here, click on the big <em>Create app now</em> button. When the page reloads, you get a package name and API key that you will use in the next step.</p>
+
+<p>If you wish to be able to send push notifications from this page, you will need to provide a valid push certificate matching the package name given in the <em>Mobile app details</em> table.</p>
+
+<blockquote>To generate your push certificate, please follow the <a href="http://dev.followanalytics.com/faq/#how-to-configure-my-ios-app-for-push-notifications">procedure described in our developer portal</a></blockquote>
 
 <h3>3. Download and build the iOS mobile app</h3>
 
 <p>To enable push notifications on the test app, you will need an Apple Developer Account, which costs 99USD per year. Without it, you can still use the app on a device and get that data into Salesforce.</p>
 <ul>
-<li><a href="#">Download the iOS app code from Github</a></li>
-<li>On a Mac computer, open the project in Xcode by double-clicking on the <code>.xcodeproj</code> file</li>
-<li>Go to the Heroku app you deployed (<code>APPNAME.herokuapp.com</code>) and copy the mobile app package name. In Xcode, go to the project settings, and change the package name to the one you copied</li>
-<li>On your Heroku app, copy the app API Key. In Xcode, navigate to the Constants.h file, and edit the value for <code>API_KEY</code> with the one you copied.</li>
+<li><a href="https://github.com/followanalytics/fa-demo-heroku-insurance-ios">Download the iOS app code from Github</a></li>
+<li>On a Mac computer, open the project in Xcode by double-clicking on the <code>fa-demo-insurance-app.xcodeproj</code> file</li>
+<li>Go to the Heroku app you deployed (<code>APPNAME.herokuapp.com</code>) and copy the mobile app <em>package name</em>.<br/>In Xcode, go to the project settings by clicking <em>fa-demo-insurance-app</em> in the left pane, and change the <em>bundle identifier</em> to the package name  you copied.<br/><img src="images/bundle_id.png"/></li>
+<li>Open the <code>FAConstants.m</code> file by searching it using the <code>⌘ + ⇧ + O</code> shortcut or by browsing in the left pane (the file is in the <em>fa-demo-insurance-app</em> folder). Take the API key given on the home page of the Heroku app you deployed, and use it as value for the <code>FAInsuranceSDKAPIKey</code> constant. For instance, the key <code>ABCD1234</code> would give the following line: <pre>NSString *const FAInsuranceSDKAPIKey = @"ABCD1234";</pre>Don't forget to keep the <code>@</code> sign in front of the opening double quote.</li>
 <li>Build the project (Product > Build) to ensure everything is properly configured. It should run without error.</li>
-<li>Connect an iPhone to your computer, and Run the app on it. <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/LaunchingYourApponDevices/LaunchingYourApponDevices.html">Please follow these instructions to know how to run the app on your device</a></li>
+<li>Connect an iPhone to your computer, and Run the app on it. <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/LaunchingYourApponDevices/LaunchingYourApponDevices.html">Please follow these instructions to know how to run the app on your device</a>.</li>
 <li>Should you wish to be able to send push notifications to the app, you will need to enroll to the Apple Developer Program (or use an existing Apple ID already enrolled). <a href="http://dev.followanalytics.com/faq/#how-to-configure-my-ios-app-for-push-notifications">Follow these instructions to produce the certificate needed to send push notifications</a>, and add it to FollowAnalytics through the Heroku demo app.</li>
 </ul>
+
+
+<h3>You're all set!</h3>
+<p>You can now proceed to the <a href="walkthrough.html">Walkthrough section</a> of this site to see how to use what you just set up.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner">Copyright 2016 FollowAnalytics, Inc. All rights reserved.</span>
       </footer>
 
     </section>
-
   
   </body>
 </html>
