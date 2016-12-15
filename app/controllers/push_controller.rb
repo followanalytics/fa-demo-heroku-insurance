@@ -68,7 +68,8 @@ class PushController < ApplicationController
           'token' => ENV['SALESFORCE_TOKEN'],
           'client_id' => ENV['SALESFORCE_APP_CLIENT_ID'],
           'client_secret' => ENV['SALESFORCE_APP_CLIENT_SECRET'],
-          'crm_type' => 'sf'
+          'crm_type' => 'sf',
+          'default_key_field' => 'email'
         }
         @crm_system = create_object(url('crm_systems'), post_params)
       end
