@@ -1,7 +1,7 @@
 class PushController < ApplicationController
 
   # BASE_URL = 'http://localhost:3000/api/'.freeze
-  BASE_URL = 'https://api-dev.follow-apps.com/api/'.freeze
+  BASE_URL = 'https://api.follow-apps.com/api/'.freeze
   CAMPAIGN_NAME = 'Heroku demo transac'.freeze
 
   # get all the data required for showing the default page
