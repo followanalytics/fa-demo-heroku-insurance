@@ -1,7 +1,7 @@
 class PushController < ApplicationController
 
   # BASE_URL = 'http://localhost:3000/api/'.freeze
-  BASE_URL = 'https://api.follow-apps.com/api/'.freeze
+  BASE_URL = 'https://api-dev.follow-apps.com/api/'.freeze
   CAMPAIGN_NAME = 'Heroku demo transac'.freeze
 
   # get all the data required for showing the default page
@@ -10,7 +10,7 @@ class PushController < ApplicationController
     fetch_app_and_key
     fetch_certificate if @mobile_app.present?
     fetch_users if @certificate.present?
-    
+
     flash[:error_message] ||= @error_message
     flash[:info] ||= @info
   end
