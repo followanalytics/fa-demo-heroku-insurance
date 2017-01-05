@@ -20,5 +20,6 @@
     "SALESFORCE_APP_CLIENT_SECRET": {
       "description": "The client secret obtained when configuring the FollowAnalytics AppExchange OAuth app."
     }
-  }
+  },
+  "addons": ["followanalytics:discovery"]
 }
